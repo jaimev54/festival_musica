@@ -24,3 +24,12 @@
     margin: 0 auto;
 }
 
+@mixin grid ($columnas) {
+   display: grid;
+        grid-template-columns: repeat($columnas, 1fr);
+        gap: 5rem;
+}
+
+@mixin resetear-lista {
+    margin: 0;
+}
