@@ -36,8 +36,11 @@
 
     h2 {
         color: v.$blanco;
-        font-size: 7rem;
+        font-size: 2rem;
         margin: 0;
+        @include m.tablet {
+            font-size: 7rem;
+        }
     }
 
     p {

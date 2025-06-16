@@ -522,8 +522,13 @@ body > section {
 }
 .contenido-video h2 {
   color: #FFFFFF;
-  font-size: 7rem;
+  font-size: 2rem;
   margin: 0;
+}
+@media (min-width: 768px) {
+  .contenido-video h2 {
+    font-size: 7rem;
+  }
 }
 .contenido-video p {
   background-color: #F53756;
