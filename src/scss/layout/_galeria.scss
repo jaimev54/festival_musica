@@ -1,0 +1,51 @@
+@use "base/variables" as v;
+@use "base/mixins" as m;
+
+.galeria {
+    @include m.contenedor;
+    &-imagenes {
+        @include m.grid(1, 2rem);
+
+        @include m.telefono {
+            @include m.grid(2, 2rem);
+        }
+        @include m.tablet {
+            @include m.grid(3, 2rem);
+        }
+
+        @include m.portatil {
+            @include m.grid(4, 2rem);
+        }
+
+        img {
+            height: 20rem;
+            object-fit: cover;
+        }
+        
+    }
+}
+
+// SCSS o CSS
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9); // fondo negro semi-transparente
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.imagen-modal {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.no-scroll {
+  overflow: hidden;
+}
