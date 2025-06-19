@@ -40,6 +40,7 @@ function crearGaleria() {
             // Agregar evento para cerrar el modal al hacer clic en el fondo
             modal.onclick = function () {
                 modal.remove();
+                document.body.classList.remove('no-scroll'); // restaura el scrol
             }
 
             // Agregar el modal al body
