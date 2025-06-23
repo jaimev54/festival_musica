@@ -1,59 +1,108 @@
 document.addEventListener('DOMContentLoaded', function() {
+    navegacionFija();
     crearGaleria();
+    resaltarEnlance(); // ✅ Ahora sí funcionará
+    scrollNav();
 });
+
+function navegacionFija() {
+    const header = document.querySelector('.header');
+    const sobreFestival = document.querySelector('.sobre-festival');
+
+    window.addEventListener('scroll', function() {
+        if (sobreFestival.getBoundingClientRect().bottom < 1) {
+            header.classList.add('fixed');
+        } else {
+            header.classList.remove('fixed');
+        }
+    });
+}
 
 function crearGaleria() {
     const galeria = document.querySelector('.galeria-imagenes');
-    const cantidadImagenes = 16; // Total de imágenes a agregar
+    const cantidadImagenes = 16;
+
     for (let i = 1; i <= cantidadImagenes; i++) {
         const imagen = document.createElement('IMG');
         imagen.src = `src/img/gallery/full/${i}.jpg`;
         imagen.alt = `Imagen ${i}`;
         imagen.classList.add('galeria-imagen');
 
-        // Agregar un evento de clic para mostrar la imagen en grande
-        //event handler
-
         imagen.onclick = function() {
             mostrarImagen(i);
-            console.log(`Imagen ${i} clickeada`);
         }
 
         galeria.appendChild(imagen);
     }
 
-    function mostrarImagen(i){
-
-        //general modal
+    function mostrarImagen(i) {
         const modal = document.createElement('DIV');
         modal.classList.add('modal');
 
-        // Crear la imagen grande
-            const imagen = document.createElement('IMG');
-            imagen.src = `src/img/gallery/full/${i}.jpg`;
-            imagen.alt = `Imagen ${i}`;
-            imagen.classList.add('imagen-modal');
+        const imagen = document.createElement('IMG');
+        imagen.src = `src/img/gallery/full/${i}.jpg`;
+        imagen.alt = `Imagen ${i}`;
+        imagen.classList.add('imagen-modal');
 
-            // Agregar la imagen al modal
-            modal.appendChild(imagen);
+        const botonCerrar = document.createElement('BUTTON');
+        botonCerrar.textContent = "x";
+        botonCerrar.classList.add('boton-cerrar');
+        botonCerrar.onclick = modal.remove;
 
-            // Agregar evento para cerrar el modal al hacer clic en el fondo
-            modal.onclick = function () {
+        modal.appendChild(imagen);
+        modal.appendChild(botonCerrar);
+
+        modal.onclick = function () {
+            modal.classList.add('fadeout');
+            setTimeout(() => {
                 modal.remove();
-                document.body.classList.remove('no-scroll'); // restaura el scrol
-            }
+            }, 500);
 
-            // Agregar el modal al body
-            document.body.appendChild(modal);
-
-            // Evitar scroll en el fondo
-            document.body.classList.add('no-scroll');
+            document.body.classList.remove('no-scroll');
         }
 
-    
+        document.body.appendChild(modal);
+        document.body.classList.add('no-scroll');
+    }
+}
 
+// ✅ Esta función ya está fuera de crearGaleria y ahora sí se puede ejecutar
+function resaltarEnlance() {
+    document.addEventListener("scroll", function () {
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".navegacion-principal a");
 
-    
-    
+        let actual = "";
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+
+            if (window.scrollY >= sectionTop - sectionHeight / 3) {
+                actual = section.id;
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === "#" + actual) {
+                link.classList.add("active");
+            }
+        });
+    });
+}
+
+function scrollNav() {
+    const enlaces = document.querySelectorAll('.navegacion-principal a');
+
+    enlaces.forEach(enlace => {
+        enlace.addEventListener('click', e => {
+            e.preventDefault();
+            const secctionScroll = e.target.getAttribute('href');
+            const seccion = document.querySelector(secctionScroll);
+            seccion.scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
 }
 

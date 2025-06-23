@@ -448,6 +448,16 @@ body > section {
 .header {
   background-color: #4CB8B3;
 }
+@media (min-width: 768px) {
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+}
 @media (min-width: 480px) {
   .header {
     color: #FFFFFF;
@@ -489,7 +499,7 @@ body > section {
   text-transform: uppercase;
   transition: background-color 0.3s ease-in-out;
 }
-.navegacion-principal a:hover {
+.navegacion-principal a:hover, .navegacion-principal a.active {
   background-color: #fdda00;
 }
 
@@ -518,7 +528,7 @@ body > section {
 }
 
 .contenido-video {
-  z-index: 10;
+  z-index: 9;
 }
 .contenido-video h2 {
   color: #FFFFFF;
@@ -667,6 +677,9 @@ body > section {
   z-index: 9999;
   animation: fadeIn 0.3s ease-out forwards;
 }
+.modal.fadeout {
+  animation: fadeout 0.3s ease-out forwards;
+}
 
 @keyframes fadeIn {
   from {
@@ -675,6 +688,16 @@ body > section {
   }
   to {
     opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes fadeout {
+  from {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 0;
     transform: scale(1);
   }
 }
@@ -687,6 +710,16 @@ body > section {
 
 .no-scroll {
   overflow: hidden;
+}
+
+.boton-cerrar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: none;
+  color: #000000;
+  cursor: pointer;
 }
 
 .contenedor-boletos {
